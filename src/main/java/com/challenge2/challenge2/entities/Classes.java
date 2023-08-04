@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @Builder
@@ -15,7 +18,7 @@ public class Classes {
 
     @Id
     @Column(name = "class_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "Learning path não pode ser vazio.")
@@ -26,4 +29,7 @@ public class Classes {
     @NotNull
     @Column(name= "sprint")
     private Integer sprint;
+
+    @OneToMany(mappedBy = "classes")
+    private List<Student> students = new ArrayList<>();
 }

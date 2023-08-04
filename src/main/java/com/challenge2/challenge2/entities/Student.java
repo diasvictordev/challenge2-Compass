@@ -43,6 +43,11 @@ public class Student extends User{
     @JoinColumn(name = "squad_id")
     private Squad squad;
 
+    @JsonIgnore
+    @ManyToOne //(cascade = CascadeType.ALL)
+    @JoinColumn(name = "classes_id")
+    private Classes classes;
+
     public Student(Long studentID) {
         this.setId(studentID);
     }
@@ -55,7 +60,6 @@ public class Student extends User{
                 ", attendance=" + attendance +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", squad=" + squad.getSquadName() +
-                '}';
+                ",squad=" + squad.getSquadName()+ '\'' + '}';
     }
 }

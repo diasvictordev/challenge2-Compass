@@ -2,6 +2,7 @@ package com.challenge2.challenge2.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -10,8 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SquadDTO {
-    private String squadName;
-    private List<Long> students;
+public class ClassDTO {
+    private String learningPath;
 
+    private Integer sprint;
+
+    private List<Long> students;
 }

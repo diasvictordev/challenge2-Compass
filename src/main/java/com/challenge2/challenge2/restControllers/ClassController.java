@@ -2,7 +2,11 @@ package com.challenge2.challenge2.restControllers;
 
 import java.sql.Timestamp;
 import java.util.Optional;
+
+import com.challenge2.challenge2.dto.ClassDTO;
+import com.challenge2.challenge2.dto.SquadDTO;
 import com.challenge2.challenge2.entities.ErrorResponse;
+import com.challenge2.challenge2.entities.Squad;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,7 +53,9 @@ public class ClassController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(classes);
     }
-    
+
+
+    /*
     @PostMapping
     public ResponseEntity<?> addClass(@RequestBody Classes classes){
         Classes savedClass = classService.saveClass(classes);
@@ -59,6 +65,20 @@ public class ClassController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedClass);
+    }*/
+
+    @PostMapping
+    public ResponseEntity<?> createClass(@RequestBody ClassDTO classDTO) {
+        Classes createdClass = classService.createClassWithStudents(classDTO);
+        //if (createdSquad!=null) squadService.putSquadInStudents(createdSquad, squadDTO);
+
+
+        ErrorResponse errorResponse = new ErrorResponse("Não foi possível criar a classe"
+                , new Timestamp(System.currentTimeMillis()),HttpStatus.BAD_REQUEST.name());
+        if(createdClass == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdClass);
     }
 /*
     @DeleteMapping("/{id}")
